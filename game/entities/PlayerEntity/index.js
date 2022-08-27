@@ -16,7 +16,7 @@ export class PlayerEntity extends BaseEntity {
             if(pointerInfo.type === PointerEventTypes.POINTERDOWN){
                 // right click
                 if(pointerInfo.event.button === 2){
-                    if(pointerInfo.pickInfo?.pickedMesh){
+                    if(pointerInfo.pickInfo?.pickedMesh?.id === 'ground'){
                         return this.setDestination(pointerInfo.pickInfo.pickedPoint)
                     }
                 }

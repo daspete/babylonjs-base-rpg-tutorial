@@ -15,7 +15,7 @@ export class BaseWorld {
     async update(deltaTime){}
 
     async createGround(){
-        this.ground = CreateGround(crypto.randomUUID(), { width: 100, height: 100 }, this.game.scene)
+        this.ground = CreateGround('ground', { width: 100, height: 100 }, this.game.scene)
         this.ground.material = new GridMaterial(crypto.randomUUID(), this.game.scene)
         this.ground.material.diffuseColor = new Color3(0.2, 0.25, 0.3)
         this.ground.receiveShadows = true
