@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "DasPeTe <daspetemail@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "nuxt"
+  },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^5.3.2",
     "babylonjs": "^5.21.0",
