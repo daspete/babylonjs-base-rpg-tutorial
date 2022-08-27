@@ -50,6 +50,10 @@ export class TopDownCamera extends BaseCamera {
             if(pointerInfo.type === PointerEventTypes.POINTERMOVE){
                 this.onPointerMove(pointerInfo)
             }
+
+            if(pointerInfo.type === PointerEventTypes.POINTERWHEEL){
+                this.onPointerWheel(pointerInfo)
+            }
         })
     }
 
