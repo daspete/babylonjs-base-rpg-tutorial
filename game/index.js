@@ -7,6 +7,7 @@ import {
     Time
 } from 'yuka'
 import { TopDownCamera } from './cameras/TopDownCamera'
+import { BaseWorld } from './worlds/BaseWorld'
 
 export class Game {
     constructor(canvas, vue){
@@ -18,6 +19,7 @@ export class Game {
         this.time = new Time()
 
         this.camera = new TopDownCamera(this)
+        this.world = new BaseWorld(this)
     }
 
     async start(){
@@ -26,6 +28,7 @@ export class Game {
         })
 
         await this.camera.start()
+        await this.world.start()
 
         this.engine.runRenderLoop(() => {
             const deltaTime = this.time.update().getDelta()
@@ -36,6 +39,7 @@ export class Game {
 
     async update(deltaTime){
         this.camera.update(deltaTime)
+        this.world.update(deltaTime)
     }
 
     async destroy(){
