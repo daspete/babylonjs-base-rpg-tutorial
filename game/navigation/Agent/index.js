@@ -39,10 +39,10 @@ export class Agent {
 
     rotate(deltaTime){
         const velocity = this.navmesh.getAgentVelocity(this.agentIndex)
+
         if(velocity.length() < 0.3) return
 
         const desiredRotation = Math.atan2(velocity.x, velocity.z)
-
         const targetRotation = (desiredRotation - this.transform.rotation.y) * this.agentSettings.rotationSpeed * deltaTime
 
         this.transform.rotation.y += targetRotation
