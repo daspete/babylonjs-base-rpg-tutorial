@@ -17,8 +17,6 @@ export class Agent {
             separationWeight: 1
         }, agentSettings)
 
-        console.log(this.agentSettings)
-
         this.agentSettings.maxAcceleration = this.agentSettings.maxSpeed * 8
 
         this.transform = new TransformNode()
@@ -41,11 +39,13 @@ export class Agent {
 
     rotate(deltaTime){
         const velocity = this.navmesh.getAgentVelocity(this.agentIndex)
-        if(velocity < 0.1) return
+        if(velocity.length() < 0.3) return
 
         const desiredRotation = Math.atan2(velocity.x, velocity.z)
 
-        this.transform.rotation.y += (desiredRotation - this.transform.rotation.y) * this.agentSettings.rotationSpeed * deltaTime
+        const targetRotation = (desiredRotation - this.transform.rotation.y) * this.agentSettings.rotationSpeed * deltaTime
+
+        this.transform.rotation.y += targetRotation
     }
 
     setDestination(position, teleport = false){

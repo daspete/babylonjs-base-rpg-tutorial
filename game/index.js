@@ -9,6 +9,7 @@ import {
     Time
 } from 'yuka'
 import { TopDownCamera } from './cameras/TopDownCamera'
+import { PlayerEntity } from './entities/PlayerEntity'
 import { Navmesh } from './navigation/Navmesh'
 import { BaseWorld } from './worlds/BaseWorld'
 
@@ -17,7 +18,7 @@ export class Game {
         this.canvas = canvas
         this.vue = vue
 
-        this.debug = true
+        this.debug = false
 
         this.engine = new Engine(this.canvas, true)
         this.scene = new Scene(this.engine)
@@ -37,6 +38,10 @@ export class Game {
         await this.world.start()
         await this.navmesh.start()
         await this.navmesh.createNavmesh()
+
+        this.player = new PlayerEntity(this, Vector3.Zero(), {
+            maxSpeed: 3
+        })
 
         this.engine.runRenderLoop(() => {
             const deltaTime = this.time.update().getDelta()
