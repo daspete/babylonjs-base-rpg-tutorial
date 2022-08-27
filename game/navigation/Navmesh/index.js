@@ -58,6 +58,10 @@ export class Navmesh {
         this.crowd.agentTeleport(agentIndex, position)
     }
 
+    updateAgentParameters(agentIndex, agentSettings){
+        this.crowd.updateAgentParameters(agentIndex, agentSettings)
+    }
+
     getAgentVelocity(agentIndex){
         return this.crowd.getAgentVelocity(agentIndex)
     }

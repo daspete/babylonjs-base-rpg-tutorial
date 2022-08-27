@@ -37,6 +37,13 @@ export class Agent {
         this.rotate(deltaTime)
     }
 
+    updateMaxSpeed(value){
+        this.agentSettings.maxSpeed = value
+        this.agentSettings.maxAcceleration = value * 8
+
+        this.navmesh.updateAgentParameters(this.agentIndex, this.agentSettings)
+    }
+
     rotate(deltaTime){
         const velocity = this.navmesh.getAgentVelocity(this.agentIndex)
 

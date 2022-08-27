@@ -1,9 +1,16 @@
 import { CreateBox, PointerEventTypes, TransformNode } from "babylonjs"
+import { EntityStats } from "../../stats/stats/EntityStats"
 import { BaseEntity } from "../BaseEntity"
 
 export class PlayerEntity extends BaseEntity {
     constructor(game, position, agentSettings){
         super(game, position, agentSettings)
+
+        this.stats = new EntityStats(this, 1, {
+            speed: { base: 1.5 }
+        })
+
+        this.updateMaxSpeed(this.stats.get('speed'))
 
         this.graphics = new TransformNode()
         this.graphics.parent = this.transform
