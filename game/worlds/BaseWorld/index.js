@@ -19,6 +19,8 @@ export class BaseWorld {
         this.ground.material = new GridMaterial(crypto.randomUUID(), this.game.scene)
         this.ground.material.diffuseColor = new Color3(0.2, 0.25, 0.3)
         this.ground.receiveShadows = true
+
+        this.game.navmesh.addMesh(this.ground)
     }
 
     async createLight(){
