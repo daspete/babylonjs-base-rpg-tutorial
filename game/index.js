@@ -9,7 +9,6 @@ import {
     Time
 } from 'yuka'
 import { TopDownCamera } from './cameras/TopDownCamera'
-import { BaseEntity } from './entities/BaseEntity'
 import { Navmesh } from './navigation/Navmesh'
 import { BaseWorld } from './worlds/BaseWorld'
 
@@ -36,24 +35,8 @@ export class Game {
 
         await this.camera.start()
         await this.world.start()
-        
         await this.navmesh.start()
         await this.navmesh.createNavmesh()
-
-        this.randomAgents = []
-
-        for(let i = 0; i < 100; i++){
-            let randomAgent = new BaseEntity(
-                this, 
-                new Vector3(Math.random() * 100 - 50, 0, Math.random() * 100 - 50),
-                {
-                    maxSpeed: Math.random() * 3 + 1
-                }
-            )
-            this.randomAgents.push(randomAgent)
-        }
-
-        this.randomEntityMovement()
 
         this.engine.runRenderLoop(() => {
             const deltaTime = this.time.update().getDelta()
@@ -66,20 +49,6 @@ export class Game {
         this.camera.update(deltaTime)
         this.world.update(deltaTime)
         this.navmesh.update(deltaTime)
-    }
-
-    randomEntityMovement(){
-        const randomAgents = this.randomAgents.filter(() => {
-            return Math.random() > 0.5
-        })
-
-        randomAgents.forEach((agent) => {
-            agent.setDestination(new Vector3(Math.random() * 100 - 50, 0, Math.random() * 100 - 50))
-        })
-
-        setTimeout(() => {
-            this.randomEntityMovement()
-        }, 5000)
     }
 
     async destroy(){
