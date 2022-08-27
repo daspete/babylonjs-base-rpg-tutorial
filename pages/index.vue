@@ -10,6 +10,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.page {
+    @apply w-screen h-screen;
+    @apply overflow-hidden;
+    @apply bg-gray-900;
+}
 </style>

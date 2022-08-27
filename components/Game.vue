@@ -1,15 +1,34 @@
 <template>
     <div class="game">
-        Hello game
+        <canvas ref="gameview"></canvas>
     </div>
 </template>
 
 <script>
-export default {
+import { Game } from '~/game'
 
+export default {
+    game: null,
+
+    mounted(){
+        this.game = new Game(this.$refs.gameview, this)
+        this.game.start()
+    },
+
+    beforeDestroy(){
+        if(this.game){
+            this.game.destroy()
+        }
+    }
 }
 </script>
 
-<style>
+<style lang="scss">
+.game {
+    @apply w-full h-full;
 
+    canvas {
+        @apply w-full h-full;
+    }
+}
 </style>
