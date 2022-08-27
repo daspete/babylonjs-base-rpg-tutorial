@@ -9,6 +9,7 @@ import {
     Time
 } from 'yuka'
 import { TopDownCamera } from './cameras/TopDownCamera'
+import { EnemyEntity } from './entities/EnemyEntity'
 import { PlayerEntity } from './entities/PlayerEntity'
 import { Navmesh } from './navigation/Navmesh'
 import { BaseWorld } from './worlds/BaseWorld'
@@ -42,6 +43,11 @@ export class Game {
         this.player = new PlayerEntity(this, Vector3.Zero(), {
             maxSpeed: 3
         })
+
+        for(let i = 0; i < 50; i++){
+            const position = new Vector3(Math.random() * 100 - 50, 0, Math.random() * 100 - 50)
+            const enemy = new EnemyEntity(this, position)
+        }
 
         this.engine.runRenderLoop(() => {
             const deltaTime = this.time.update().getDelta()
