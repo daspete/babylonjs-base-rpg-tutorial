@@ -40,13 +40,21 @@ export class Game {
         await this.navmesh.start()
         await this.navmesh.createNavmesh()
 
-        this.player = new PlayerEntity(this, Vector3.Zero(), {
-            maxSpeed: 3
+        this.player = new PlayerEntity(this, {
+            position: new Vector3(0, 0, 0),
+            stats: {
+                speed: { base: 1.5 }
+            }
         })
 
         for(let i = 0; i < 50; i++){
             const position = new Vector3(Math.random() * 100 - 50, 0, Math.random() * 100 - 50)
-            const enemy = new EnemyEntity(this, position)
+            const enemy = new EnemyEntity(this, {
+                position,
+                stats: {
+                    speed: { base: 1.2 }
+                }
+            })
         }
 
         this.engine.runRenderLoop(() => {

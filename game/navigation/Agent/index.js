@@ -2,9 +2,14 @@ import { TransformNode, Vector3 } from "babylonjs"
 import { merge } from "lodash"
 
 export class Agent {
-    constructor(game, startPosition = Vector3.Zero(), agentSettings){
+    constructor(game, settings){
         this.game = game
         this.navmesh = this.game.navmesh
+
+        settings = merge({
+            startPosition: Vector3.Zero(), 
+            agentSettings: {}
+        }, settings)
 
         this.agentSettings = merge({
             radius: 0.5,
@@ -15,14 +20,14 @@ export class Agent {
             collisionQueryRange: 1.5,
             pathOptimizationRange: 1.25,
             separationWeight: 1
-        }, agentSettings)
+        }, settings.agentSettings)
 
         this.agentSettings.maxAcceleration = this.agentSettings.maxSpeed * 8
 
         this.transform = new TransformNode()
         this.transform.agent = this
 
-        const position = this.navmesh.getClosestPoint(startPosition.clone())
+        const position = this.navmesh.getClosestPoint(settings.position.clone())
         this.destination = position.clone()
         this.agentIndex = this.navmesh.addAgent(position, this.agentSettings, this.transform)
 

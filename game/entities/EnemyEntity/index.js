@@ -1,15 +1,18 @@
 import { Color3, CreateBox, StandardMaterial, TransformNode } from "babylonjs"
+import { merge } from "lodash"
 import { Vector3 } from "yuka"
 import { EntityStats } from "../../stats/stats/EntityStats"
 import { BaseEntity } from "../BaseEntity"
 
 export class EnemyEntity extends BaseEntity {
-    constructor(game, position, agentSettings){
-        super(game, position, agentSettings)
+    constructor(game, settings){
+        super(game, settings)
 
-        this.stats = new EntityStats(this, 1, {
+        const statSettings = merge({
             speed: { base: 1.2 }
-        })
+        }, settings.stats)
+
+        this.stats = new EntityStats(this, settings.level || 1, statSettings)
 
         this.updateMaxSpeed(this.stats.get('speed'))
 
