@@ -49,6 +49,8 @@ export class EnemyEntity extends BaseEntity {
         // when we are moving, we don't abort the movement
         if(this.stateMachine.currentState instanceof MoveState) return
         
+        if(!this.game.player) return
+
         const distanceToPlayer = Vector3.Distance(this.transform.position, this.game.player.transform.position)
         if(distanceToPlayer < 5){
             this.setHuntTarget(this.game.player)
@@ -58,15 +60,5 @@ export class EnemyEntity extends BaseEntity {
     setHuntTarget(entity){
         this.huntTarget = entity
         this.stateMachine.changeTo('hunt')
-    }
-
-    attack(){
-        if(!this.huntTarget) return
-
-        const currentTime = this.game.time.getElapsed()
-        if(this.lastAttackTime + this.attackRate > currentTime) return
-        this.lastAttackTime = currentTime
-        
-        console.log('attack target', this.huntTarget)
     }
 }

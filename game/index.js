@@ -12,6 +12,7 @@ import { TopDownCamera } from './cameras/TopDownCamera'
 import { EnemyEntity } from './entities/EnemyEntity'
 import { PlayerEntity } from './entities/PlayerEntity'
 import { Navmesh } from './navigation/Navmesh'
+import { LaserWeapon } from './weapons/LaserWeapon'
 import { BaseWorld } from './worlds/BaseWorld'
 
 export class Game {
@@ -42,23 +43,21 @@ export class Game {
         await this.navmesh.start()
         await this.navmesh.createNavmesh()
 
-        this.player = new PlayerEntity(this, {
-            position: new Vector3(0, 0, 0),
-            stats: {
-                speed: { base: 1.5 }
-            }
-        })
+        this.createPlayer()
 
         for(let i = 0; i < 50; i++){
             const position = new Vector3(Math.random() * 100 - 50, 0, Math.random() * 100 - 50)
-            this.enemyEntities.push(
-                new EnemyEntity(this, {
-                    position,
-                    stats: {
-                        speed: { base: 1.2 }
-                    }
-                })
-            )
+            const enemy = new EnemyEntity(this, {
+                position,
+                stats: {
+                    speed: { base: 1.2 }
+                }
+            })
+
+            const enemyWeapon = new LaserWeapon(this, enemy)
+            enemy.equipWeapon(enemyWeapon)
+
+            this.enemyEntities.push(enemy)
         }
 
         this.engine.runRenderLoop(() => {
@@ -66,6 +65,23 @@ export class Game {
             this.update(deltaTime)
             this.scene.render()
         })
+    }
+
+    createPlayer(){
+        const playerLevel = this.player?.stats?.Level || 1
+
+        setTimeout(() => {
+            this.player = new PlayerEntity(this, {
+                position: new Vector3(0, 0, 0),
+                level: playerLevel,
+                stats: {
+                    speed: { base: 1.5 }
+                }
+            })
+    
+            this.playerWeapon = new LaserWeapon(this, this.player)
+            this.player.equipWeapon(this.playerWeapon)
+        }, 2000)
     }
 
     async update(deltaTime){

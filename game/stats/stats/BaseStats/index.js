@@ -25,6 +25,10 @@ export class BaseStats {
         return this.stats[statKey].Value
     }
 
+    get Level(){
+        return this.level
+    }
+
     set Level(value){
         this.level = value
         

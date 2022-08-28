@@ -76,14 +76,19 @@ export class PlayerEntity extends BaseEntity {
         this.stateMachine.changeTo('hunt')
     }
 
-    attack(){
-        if(!this.huntTarget) return
+    getHit(from, damage){
+        super.getHit(from, damage)
+        if(this.stats.get('health') == 0) return
 
-        const currentTime = this.game.time.getElapsed()
-        if(this.lastAttackTime + this.attackRate > currentTime) return
-        this.lastAttackTime = currentTime
-        
-        console.log('attack target', this.huntTarget)
+        if(this.stateMachine.currentState instanceof IdleState){
+            this.setHuntTarget(from)
+        }
+    }
+
+    die(){
+        super.die()
+
+        this.game.createPlayer()
     }
 
     findNearEnemy(){

@@ -11,7 +11,7 @@ export class EntityStats extends BaseStats {
 
         this.initialStats = merge({
             health: { type: LevelBasedMaxValueStatType, base: 91, multiplier: 1.01 },
-            speed: { type: LevelBasedStatType, base: 2, multiplier: 1.015 }
+            speed: { type: LevelBasedStatType, base: 2, multiplier: 1.015 },
         }, initialStats)
 
         this.init()
