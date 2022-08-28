@@ -28,6 +28,8 @@ export class Game {
         this.navmesh = new Navmesh(this)
         this.camera = new TopDownCamera(this)
         this.world = new BaseWorld(this)
+
+        this.enemyEntities = []
     }
 
     async start(){
@@ -49,12 +51,14 @@ export class Game {
 
         for(let i = 0; i < 50; i++){
             const position = new Vector3(Math.random() * 100 - 50, 0, Math.random() * 100 - 50)
-            const enemy = new EnemyEntity(this, {
-                position,
-                stats: {
-                    speed: { base: 1.2 }
-                }
-            })
+            this.enemyEntities.push(
+                new EnemyEntity(this, {
+                    position,
+                    stats: {
+                        speed: { base: 1.2 }
+                    }
+                })
+            )
         }
 
         this.engine.runRenderLoop(() => {
