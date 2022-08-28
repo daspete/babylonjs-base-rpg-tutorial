@@ -6,7 +6,7 @@ export class HuntState extends State {
 
     execute(owner){
         // when we haven't got a hunt target any more, we get back to idle state
-        if(!owner.huntTarget){
+        if(!owner.huntTarget || owner.huntTarget.isDead){
             return owner.stateMachine.changeTo('idle')
         }
 
